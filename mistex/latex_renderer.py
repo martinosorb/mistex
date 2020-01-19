@@ -16,7 +16,7 @@ def escape_latex(s, quote=True):
 
 
 HEADING_LEVELS = [
-    # 'chapter*',
+    'chapter*',
     'section*',
     'subsection*',
     'subsubsection*',
@@ -54,7 +54,7 @@ class LatexRenderer(BaseRenderer):
         return "\\end{document}"
 
     def head(self):
-        head = "\\documentclass{article}\n"
+        head = "\\documentclass{report}\n"
         head += "\\include{" + self.stylefile + "}"
         for pkg in self.packages:
             head += "\\usepackage"
@@ -121,7 +121,7 @@ class LatexRenderer(BaseRenderer):
         return '\\texttt{' + escape_latex(text) + '}'
 
     def linebreak(self):
-        return '\n\n'
+        return '\n'
 
     def inline_html(self, html):
         raise NotImplementedError('inline html')
@@ -156,7 +156,8 @@ class LatexRenderer(BaseRenderer):
         return '\\begin{quote}\n' + text + '\\end{quote}\n'
 
     def block_html(self, html):
-        raise NotImplementedError('block html')
+        return html  # TODO
+        # raise NotImplementedError('block html')
         # if not self._escape:
         #     return html + '\n'
         # return '<p>' + escape_html(html) + '</p>\n'
