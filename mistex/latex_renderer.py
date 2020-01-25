@@ -1,7 +1,6 @@
 from mistune.renderers import BaseRenderer
 import re
 
-
 re_quot_close = re.compile(r'("(?=[\s.,:;!?])|"$)')
 re_quot_open = re.compile(r'((?<=\s)"|^")')
 
@@ -49,9 +48,10 @@ class LatexRenderer(BaseRenderer):
 
         self.packages = []
         self.pkg_opt = {}
+        self.tail_string = "\\end{document}"
 
     def tail(self):
-        return "\\end{document}"
+        return self.tail_string
 
     def head(self):
         head = "\\documentclass{report}\n"
@@ -97,7 +97,6 @@ class LatexRenderer(BaseRenderer):
             text = link
         if title is not None:
             pass  # TODO
-            # raise NotImplementedError()
 
         s = '\\href{' + self._safe_url(link) + '}{' + escape_latex(text) + '}'  # TODO escape
         return s
@@ -124,7 +123,7 @@ class LatexRenderer(BaseRenderer):
         return '\n'
 
     def inline_html(self, html):
-        raise NotImplementedError('inline html')
+        raise NotImplementedError('inline html')  # TODO
         # if self._escape:
         #     return escape_latex(html)
         # return html
@@ -163,7 +162,7 @@ class LatexRenderer(BaseRenderer):
         # return '<p>' + escape_html(html) + '</p>\n'
 
     def block_error(self, html):
-        raise NotImplementedError('block error')
+        raise NotImplementedError('block error')  # TODO
         # return '<div class="error">' + html + '</div>\n'
 
     def list(self, text, ordered, level, start=None):
@@ -176,3 +175,4 @@ class LatexRenderer(BaseRenderer):
 
     def list_item(self, text, level):
         return '\\item ' + text + '\n'
+
