@@ -36,15 +36,13 @@ class LatexRenderer(BaseRenderer):
 
     def __init__(self, escape=True,
                  allow_harmful_protocols=None,
-                 stylefile='structure2.tex'
+                 stylefile=None,
                  ):
         super(LatexRenderer, self).__init__()
         self._escape = escape
         self._allow_harmful_protocols = allow_harmful_protocols
 
-        self.stylefile = stylefile
-        if self.stylefile[-4:] == '.tex':
-            self.stylefile = self.stylefile[:-4]
+        self.stylefile = stylefile.strip('.tex')
 
         self.packages = []
         self.pkg_opt = {}
@@ -55,7 +53,7 @@ class LatexRenderer(BaseRenderer):
 
     def head(self):
         head = "\\documentclass{report}\n"
-        head += "\\include{" + self.stylefile + "}"
+        head += "\\input{" + self.stylefile + "}\n"
         for pkg in self.packages:
             head += "\\usepackage"
             if pkg in self.pkg_opt:

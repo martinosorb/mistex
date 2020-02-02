@@ -6,17 +6,22 @@ if len(sys.argv) <= 1:
     raise ValueError('No input files.')
 
 file = sys.argv[1]
-r = mistex.latex.read(file)
-fname = file.strip('.md')
+fname = os.path.basename(file).strip('.md')
+SOURCE_DIR = os.path.dirname(os.path.abspath(file))
+HERE = os.path.dirname(os.path.abspath(__file__))
+TMP_DIR = os.path.join(HERE, '..', 'tmp')
+TEX_TARGET_FILE = os.path.join(TMP_DIR, 'mistexfile')
+PDF_TARGET_FILE = os.path.join(SOURCE_DIR, fname + '.pdf')
+STYLEFILE = os.path.join(HERE, '..', 'styles', 'structure2')
 
-with open(f'{fname}.tex', 'w') as F:
-    F.write(r)
+rendered_file = mistex.md2latex(STYLEFILE)(file)
+
+with open(TEX_TARGET_FILE + '.tex', 'w') as F:
+    F.write(rendered_file)
 
 sh = (
-      f'latexmk -xelatex -shell-escape {fname}.tex '
-      # f'&& open {fname}.pdf; '
-      # f'rm {fname}' + '.{log,aux,out};'
-      # f'rm -r _minted-{fname}'
+      f'latexmk -cd -xelatex -shell-escape {TEX_TARGET_FILE}.tex '
+      f'&& cp {TEX_TARGET_FILE}.pdf {PDF_TARGET_FILE}'
 )
 
 os.system(sh)

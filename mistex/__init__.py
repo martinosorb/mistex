@@ -9,5 +9,11 @@ def tail_head_linker(markdown_instance, result, state):
     return head + result + tail
 
 
-latex = Markdown(LatexRenderer(), plugins=[plugin_citation])
-latex.after_render_hooks = [tail_head_linker]
+# latex = Markdown(LatexRenderer(), plugins=[plugin_citation])
+# latex.after_render_hooks = [tail_head_linker]
+
+def md2latex(stylefile):
+    reader = Markdown(LatexRenderer(stylefile=stylefile),
+                                    plugins=[plugin_citation])
+    reader.after_render_hooks = [tail_head_linker]
+    return reader.read
