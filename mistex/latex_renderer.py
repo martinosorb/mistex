@@ -37,23 +37,29 @@ class LatexRenderer(BaseRenderer):
     def __init__(self, escape=True,
                  allow_harmful_protocols=None,
                  stylefile=None,
+                 add_header=True,
                  ):
         super(LatexRenderer, self).__init__()
         self._escape = escape
         self._allow_harmful_protocols = allow_harmful_protocols
 
-        self.stylefile = stylefile.strip('.tex')
+        self.stylefile = stylefile
+        self.add_header = add_header
 
         self.packages = []
         self.pkg_opt = {}
         self.tail_string = "\\end{document}"
 
     def tail(self):
-        return self.tail_string
+        return self.tail_string if self.add_header else ''
 
     def head(self):
+        if not self.add_header:
+            return ''
+
         head = "\\documentclass{report}\n"
-        head += "\\input{" + self.stylefile + "}\n"
+        if self.stylefile is not None:
+            head += "\\input{" + self.stylefile.split('.tex') + "}\n"
         for pkg in self.packages:
             head += "\\usepackage"
             if pkg in self.pkg_opt:
@@ -68,6 +74,10 @@ class LatexRenderer(BaseRenderer):
             self.packages.append(package)
             if options is not None:
                 self.pkg_opt[package] = options
+
+    def _ensure_bib(self):
+        if '\\bibliographystyle' not in self.tail_string:
+            self.tail_string = '\n\\bibliographystyle{plain}\\bibliography{thebib}\n' + self.tail_string
 
     def _safe_url(self, url):
         if self._allow_harmful_protocols is None:
@@ -167,10 +177,9 @@ class LatexRenderer(BaseRenderer):
         if ordered:
             result = '\\begin{enumerate}\n'
             if start is not None:
-                result += '\\setcounter{enumi}{' + str(start-1) + '}'
+                result += '\\setcounter{enumi}{' + str(start - 1) + '}'
             return result + text + '\\end{enumerate}\n'
         return '\\begin{itemize}\n' + text + '\\end{itemize}\n'
 
     def list_item(self, text, level):
         return '\\item ' + text + '\n'
-

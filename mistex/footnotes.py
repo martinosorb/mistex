@@ -10,6 +10,7 @@ def render_citation(text):
 
 def parse_citation(self, m, state):
     text = m.group(1)
+    self._ensure_bib()
     return 'citation', self.render(text, state)
 
 
@@ -23,5 +24,3 @@ def plugin_citation(md):
         md.inline.rules.append('citation')
 
     md.renderer.register('citation', render_citation)
-    md.renderer.tail_string = '\n\\bibliographystyle{plain}\\bibliography{thebib}\n' + \
-                              md.renderer.tail_string  # TODO bib name + move to when citation is there
