@@ -1,0 +1,19 @@
+\documentclass{report}
+\date{}
+\begin{document}
+
+Some text before the list,
+
+\begin{itemize}
+    \item The first element
+    \item The second element
+\end{itemize}
+
+Intermediate text
+
+\begin{enumerate}
+    \item numbered list
+    \item second element
+\end{enumerate}
+
+\end{document}

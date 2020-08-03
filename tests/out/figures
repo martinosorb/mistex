@@ -1,0 +1,17 @@
+\documentclass{report}
+\usepackage{graphicx}
+\date{}
+\begin{document}
+
+First paragraph.
+
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[width=\textwidth]{image.jpg}
+        \caption{alt text}
+    \end{center}
+\end{figure}
+
+Second paragraph.
+
+\end{document}

@@ -1,0 +1,7 @@
+\documentclass{report}
+\date{}
+\begin{document}
+
+Some \textit{text in italics}, then more \textbf{in bold}. This is \texttt{inline code}.
+
+\end{document}

@@ -48,7 +48,7 @@ class LatexRenderer(BaseRenderer):
 
         self.packages = []
         self.pkg_opt = {}
-        self.tail_string = "\\end{document}"
+        self.tail_string = "\n\\end{document}"
 
     def tail(self):
         return self.tail_string if self.add_header else ''
@@ -111,15 +111,15 @@ class LatexRenderer(BaseRenderer):
 
     def image(self, src, alt="", title=None):
         self._ensure_pkg('graphicx')
-        s = '\\begin{figure}[h!]\\begin{center}'
-        s += '\n\\includegraphics[width=\\textwidth]{' + src + '}\n'
+        s = '\\begin{figure}[h!]\n    \\begin{center}'
+        s += '\n        \\includegraphics[width=\\textwidth]{' + src + '}\n'
         if alt:
-            s += '\\caption{' + alt + '}'
-        s += '\\end{center}\\end{figure}'
+            s += '        \\caption{' + alt + '}\n'
+        s += '    \\end{center}\n\\end{figure}'
         return s
 
     def emphasis(self, text):
-        return '\\emph{' + text + '}'
+        return '\\textit{' + text + '}'
 
     def strong(self, text):
         return '\\textbf{' + text + '}'
@@ -175,11 +175,11 @@ class LatexRenderer(BaseRenderer):
 
     def list(self, text, ordered, level, start=None):
         if ordered:
-            result = '\\begin{enumerate}\n'
+            result = '\n\\begin{enumerate}\n'
             if start is not None:
                 result += '\\setcounter{enumi}{' + str(start - 1) + '}'
             return result + text + '\\end{enumerate}\n'
-        return '\\begin{itemize}\n' + text + '\\end{itemize}\n'
+        return '\n\\begin{itemize}\n' + text + '\\end{itemize}\n'
 
     def list_item(self, text, level):
-        return '\\item ' + text + '\n'
+        return '    \\item ' + text + '\n'
