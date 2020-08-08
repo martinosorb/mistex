@@ -1,0 +1,11 @@
+\documentclass{report}
+\date{}
+\begin{document}
+
+I just love \textbf{bold text}.
+
+I just love \textbf{bold text}.
+
+Love\textbf{is}bold.
+
+\end{document}

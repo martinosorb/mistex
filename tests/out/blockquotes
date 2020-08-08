@@ -1,0 +1,19 @@
+\documentclass{report}
+\date{}
+\begin{document}
+\begin{quote}
+Dorothy followed her through many of the beautiful rooms in her castle.
+\end{quote}
+\begin{quote}
+Dorothy followed her through many of the beautiful rooms in her castle.
+
+The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood.
+\end{quote}
+\begin{quote}
+Dorothy followed her through many of the beautiful rooms in her castle.
+\begin{quote}
+The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood.
+\end{quote}
+\end{quote}
+
+\end{document}

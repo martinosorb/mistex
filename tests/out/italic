@@ -1,0 +1,11 @@
+\documentclass{report}
+\date{}
+\begin{document}
+
+Italicized text is the \textit{cat's meow}.
+
+Italicized text is the \textit{cat's meow}.
+
+A\textit{cat}meow
+
+\end{document}

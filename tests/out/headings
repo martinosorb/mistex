@@ -1,0 +1,19 @@
+\documentclass{report}
+\date{}
+\begin{document}
+
+\chapter*{First}
+\section*{Second}
+\section*{Second again}
+\section*{Second with space}
+\subsection*{Third level}
+A bit of text.
+
+\subsubsection*{Fourth level}
+A whole paragraph.
+
+\paragraph*{Fifth level}
+And its text.
+
+\subparagraph*{Sixth level}
+\end{document}

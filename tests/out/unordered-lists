@@ -1,0 +1,33 @@
+\documentclass{report}
+\date{}
+\begin{document}
+
+\begin{itemize}
+    \item First item
+    \item Second item
+    \item Third item
+    \item Fourth item
+\end{itemize}
+\begin{itemize}
+    \item First item
+    \item Second item
+    \item Third item
+    \item Fourth item
+\end{itemize}
+\begin{itemize}
+    \item First item
+    \item Second item
+    \item Third item
+    \item Fourth item
+\end{itemize}
+\begin{itemize}
+    \item First item
+    \item Second item
+    \item Third item
+\begin{itemize}
+    \item Indented item
+    \item Indented item
+\end{itemize}
+    \item Fourth item
+\end{itemize}
+\end{document}

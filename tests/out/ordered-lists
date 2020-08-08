@@ -1,0 +1,48 @@
+\documentclass{report}
+\date{}
+\begin{document}
+
+\begin{enumerate}
+    \item First item
+    \item Second item
+    \item Third item
+    \item Fourth item
+\end{enumerate}
+Par
+
+\begin{enumerate}
+    \item First item
+    \item Second item
+    \item Third item
+    \item Fourth item
+\end{enumerate}
+Par
+
+\begin{enumerate}
+    \item First item
+    \item Second item
+    \item Third item
+    \item Fourth item
+\end{enumerate}
+Par
+
+\begin{enumerate}
+\setcounter{enumi}{6}
+    \item First item
+    \item Second item
+    \item Third item
+    \item Fourth item
+\end{enumerate}
+Par
+
+\begin{enumerate}
+    \item First item
+    \item Second item
+    \item Third item
+\begin{enumerate}
+    \item Indented item
+    \item Indented item
+\end{enumerate}
+    \item Fourth item
+\end{enumerate}
+\end{document}

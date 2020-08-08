@@ -140,7 +140,7 @@ class LatexRenderer(BaseRenderer):
         return '\n' + text + '\n'
 
     def heading(self, text, level):
-        return '\\' + HEADING_LEVELS[level - 1] + '{' + text + '}\n'
+        return '\n\\' + HEADING_LEVELS[level - 1] + '{' + text + '}'
 
     def newline(self):
         return ''
@@ -155,12 +155,12 @@ class LatexRenderer(BaseRenderer):
         if info:
             self._ensure_pkg('minted')
             lang = info.strip().split(None, 1)[0]
-            tex = '\\begin{minted}{' + lang + '}\n'
-            return tex + code + '\\end{minted}\n'
-        return '\\begin{verbatim}\n' + code + '\\end{verbatim}\n'
+            tex = '\n\\begin{minted}{' + lang + '}\n'
+            return tex + code + '\\end{minted}'
+        return '\n\\begin{verbatim}\n' + code + '\\end{verbatim}'
 
     def block_quote(self, text):
-        return '\\begin{quote}\n' + text + '\\end{quote}\n'
+        return '\\begin{quote}' + text + '\\end{quote}\n'
 
     def block_html(self, html):
         return html  # TODO
@@ -177,9 +177,9 @@ class LatexRenderer(BaseRenderer):
         if ordered:
             result = '\n\\begin{enumerate}\n'
             if start is not None:
-                result += '\\setcounter{enumi}{' + str(start - 1) + '}'
-            return result + text + '\\end{enumerate}\n'
-        return '\n\\begin{itemize}\n' + text + '\\end{itemize}\n'
+                result += '\\setcounter{enumi}{' + str(start - 1) + '}\n'
+            return result + text + '\\end{enumerate}'
+        return '\n\\begin{itemize}\n' + text + '\\end{itemize}'
 
     def list_item(self, text, level):
         return '    \\item ' + text + '\n'

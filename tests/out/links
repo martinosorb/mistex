@@ -1,0 +1,12 @@
+\documentclass{report}
+\usepackage{hyperref}
+\date{}
+\begin{document}
+
+My favorite search engine is \href{https://duckduckgo.com}{Duck Duck Go}.
+
+\href{https://www.markdownguide.org}{https://www.markdownguide.org}
+
+\href{mailto:fake@example.com}{fake@example.com}
+
+\end{document}
