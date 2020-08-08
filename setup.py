@@ -6,5 +6,5 @@ setup(
     author='Martino Sorbaro',
     author_email='martino.sorbaro@posteo.net',
     packages=['mistex'],
-    install_requires=['mistune']
+    install_requires=['mistune>=2.0']
 )
