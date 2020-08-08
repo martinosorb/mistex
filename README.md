@@ -1,19 +1,44 @@
-# mistex
+# Mistex
 
-## Manifesto
-The objective of mistex is to **do with latex what usual markdown compilers do
-with HTML**. In other words, you will still have to write latex code for all
-advanced functions and custom tweaks. 
+## Installation
 
-### What mistex intends to be
-- A simple way to turn markdown into professional-looking PDF documents
-- A way of writing latex code without verbose commands like `\textbf{}`
-and too many curly brackets getting in the way of your thinking
-- An easier way to get some additional niceties like bibliography and page
-numbers without knowing latex
-- A way to have similar looking HTML and PDF versions of the same text (limited
-to basic markdown functionalities)
+### Requirements
+- A working **Python 3** installation. In the commands below, change `python` to `python3`
+and `pip` to `pip3` if relevant for your system.
+- A sufficiently complete **LaTeX** installation, which includes `latexmk` and `xelatex`.
+You won't need this if you're only interested in compiling md to latex.
 
-### What mistex is not
-- More powerful or complete than latex
-- Simpler than latex while performing advanced functions or customizations
+### Installing with pip
+```bash
+git clone https://github.com/martinosorb/mistex.git
+cd mistex
+pip install --user .
+```
+
+## Usage
+
+Mistex can be used to quickly compile a LaTeX file into a pdf using `xelatex` and `latexmk`.
+It will take care of the auxiliary files (putting them into its own temporary directory),
+and will leave you with a clean PDF. To simply compile a LaTeX file use:
+```bash
+python -m mistex --tex2pdf my_file.tex
+```
+
+The main purpose of mistex, however, is to pre-compile your markdown file (or mixed
+LaTeX-cum-markdown) into a pure LaTeX file that can later be compiled to PDF. To
+do this, use:
+```bash
+python -m mistex --md2tex my_file.md
+```
+
+Of course, most of the time you will want to do both things together. This is the
+default, so you just need to call:
+```bash
+python -m mistex my_file.md
+```
+
+Note that auxiliary files are saved in a temporary directory. If your file contains
+sensitive information, when you're done compiling, you may want to call:
+```
+python -m mistex --cleantmp
+```
