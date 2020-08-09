@@ -38,6 +38,7 @@ class LatexRenderer(BaseRenderer):
                  allow_harmful_protocols=None,
                  stylefile=None,
                  add_header=True,
+                 cachedir=".",
                  ):
         super(LatexRenderer, self).__init__()
         self._escape = escape
@@ -45,6 +46,7 @@ class LatexRenderer(BaseRenderer):
 
         self.stylefile = stylefile
         self.add_header = add_header
+        self.cachedir = cachedir
 
         self.packages = []
         self.pkg_opt = {}
@@ -153,7 +155,7 @@ class LatexRenderer(BaseRenderer):
 
     def block_code(self, code, info=None):
         if info:
-            self._ensure_pkg('minted')
+            self._ensure_pkg('minted', options=f"outputdir={self.cachedir}")
             lang = info.strip().split(None, 1)[0]
             tex = '\n\\begin{minted}{' + lang + '}\n'
             return tex + code + '\\end{minted}'

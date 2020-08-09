@@ -1,6 +1,7 @@
 from mistune import Markdown
 from .latex_renderer import LatexRenderer
 from .footnotes import plugin_citation
+import os
 
 
 def tail_head_linker(markdown_instance, result, state):
@@ -16,8 +17,9 @@ def auto_tail_head(markdown_instance, result, state):
     return tail_head_linker(markdown_instance, result, state)
 
 
-def md2latex(stylefile=None, filetype='auto'):
-    reader = Markdown(LatexRenderer(stylefile=stylefile), plugins=[plugin_citation])
+def md2latex(stylefile=None, filetype='auto', cachedir="."):
+    reader = Markdown(LatexRenderer(stylefile=stylefile, cachedir=cachedir),
+                      plugins=[plugin_citation])
 
     if filetype in ['markdown', 'md']:
         reader.after_render_hooks = [tail_head_linker]
@@ -29,3 +31,18 @@ def md2latex(stylefile=None, filetype='auto'):
         raise ValueError(f"File type '{filetype}' not understood.")
 
     return reader
+
+
+def tex2pdf(tex_input, pdf_output, cachedir):
+    os.makedirs(cachedir, exist_ok=True)
+    # remove extension
+    tex_input = os.path.splitext(tex_input)[0]
+    output = os.path.join(cachedir, tex_input)
+
+    sh = (
+        f'latexmk -pdf -outdir={cachedir} -xelatex -shell-escape {tex_input}.tex;'
+        f' cp {output}.pdf {pdf_output};'  # TODO do via python for windows compatibility
+        # f'mv {tex_input}.tex {cachedir}'
+    )
+
+    os.system(sh)
