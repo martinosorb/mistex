@@ -1,20 +1,18 @@
 import pytest
-import os
+from pathlib import Path
 
 # find test files
-HERE = os.path.dirname(os.path.abspath(__file__))
-IN_DIR = os.path.join(HERE, "in")
-OUT_DIR = os.path.join(HERE, "out")
-IN_FILES = os.listdir(IN_DIR)
-OUT_FILES = os.listdir(OUT_DIR)
-assert len(IN_FILES) == len(OUT_FILES)
+HERE = Path(__file__).resolve().parent
+IN_DIR = HERE / "in"
+OUT_DIR = HERE / "out"
 
 
-@pytest.fixture(params=IN_FILES)
+@pytest.fixture(params=IN_DIR.rglob("*"))
 def load_in_out(request):
-    with open(os.path.join(IN_DIR, request.param)) as file:
+    fname = request.param.name
+    with open(IN_DIR / fname) as file:
         in_file = file.read()
-    with open(os.path.join(OUT_DIR, request.param)) as file:
+    with open(OUT_DIR / fname) as file:
         out_file = file.read()
     return in_file, out_file
 

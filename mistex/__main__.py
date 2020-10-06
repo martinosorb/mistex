@@ -1,10 +1,10 @@
 import mistex
-import os
 import argparse
+from pathlib import Path
 
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-GENERATED_TEX = "mistex_out.tex"
+HERE = Path(__file__).resolve().parent
+GENERATED_TEX = Path("mistex_out.tex")
 stylefile = None
 
 
@@ -24,7 +24,7 @@ parser.add_argument(
     help="Remove all files from mistex's cache directory. Use with caution if a custom directory is specified."
 )
 parser.add_argument(
-    "--cachedir", default=os.path.join(HERE, '..', 'tmp'),
+    "--cachedir", default=HERE.parent / "tmp",
     help="Assign a custom directory for LaTeX compilation and auxiliary files."
 )
 args = parser.parse_args()
@@ -54,7 +54,7 @@ else:  # no action specified, we do both
         F.write(rendered_file)
     # compile the result we just saved
     mistex.tex2pdf(GENERATED_TEX, args.output_file, args.cachedir)
-    os.remove(GENERATED_TEX)
+    GENERATED_TEX.unlink()
 
 
 if args.rmcache:

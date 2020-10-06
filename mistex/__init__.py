@@ -1,7 +1,8 @@
 from mistune import Markdown
 from .latex_renderer import LatexRenderer
 from .footnotes import plugin_citation
-import os
+from pathlib import Path
+from subprocess import call
 
 
 def tail_head_linker(markdown_instance, result, state):
@@ -12,7 +13,7 @@ def tail_head_linker(markdown_instance, result, state):
 
 def auto_tail_head(markdown_instance, result, state):
     # automatically figure out if there is a latex header
-    if '\\documentclass{' in result:  # TODO this could be sped up
+    if '\\documentclass' in result:  # TODO this could be sped up
         return result
     return tail_head_linker(markdown_instance, result, state)
 
@@ -34,10 +35,12 @@ def md2latex(stylefile=None, filetype='auto', cachedir="."):
 
 
 def tex2pdf(tex_input, pdf_output, cachedir):
-    os.makedirs(cachedir, exist_ok=True)
+    # create cache directory if it doesn't exist
+    cachedir = Path(cachedir)
+    cachedir.mkdir(exist_ok=True, parents=True)
     # remove extension
-    tex_input = os.path.splitext(tex_input)[0]
-    output = os.path.join(cachedir, tex_input)
+    tex_input = Path(tex_input).with_suffix("")
+    output = cachedir / tex_input
 
     sh = (
         f'latexmk -pdf -outdir={cachedir} -xelatex -shell-escape {tex_input}.tex;'
@@ -45,4 +48,4 @@ def tex2pdf(tex_input, pdf_output, cachedir):
         # f'mv {tex_input}.tex {cachedir}'
     )
 
-    os.system(sh)
+    call(sh, shell=True)
