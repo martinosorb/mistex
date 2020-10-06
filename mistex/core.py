@@ -8,6 +8,11 @@ from .latex_renderer import LatexRenderer
 from .plugins import plugin_citation
 
 
+def read_file(filename):
+    with open(filename) as file:
+        return file.read()
+
+
 def tail_head_linker(markdown_instance, result, state):
     head = markdown_instance.renderer.head()
     tail = markdown_instance.renderer.tail()
