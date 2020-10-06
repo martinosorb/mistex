@@ -15,6 +15,10 @@ cd mistex
 pip install --user .
 ```
 
+*NOTE*: mistex requires `mistune` 2.*. This unfortunately conflics with other packages,
+such as `jupyter`, which use `mistune` version 0.8. If you experience problems, please
+use a virtual environment.
+
 ## Usage
 
 Mistex can be used to quickly compile a LaTeX file into a pdf using `xelatex` and `latexmk`.
