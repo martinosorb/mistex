@@ -7,3 +7,5 @@ venv/
 styles
 build
 dist
+htmlcov
+.coverage
