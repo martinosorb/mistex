@@ -1,0 +1,15 @@
+\documentclass{report}
+\date{}
+\begin{document}
+
+``latex-style quotation marks should not be affected''
+
+`same for single apices'
+
+``conversely, quotation marks should be converted to latex-style''
+
+'but not (yet) for single apices.'
+
+The behaviour should be consistent in 'single line' or ``single line'' cases.
+
+\end{document}
