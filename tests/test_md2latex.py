@@ -23,7 +23,7 @@ def test_auto_no_add_header():
     from mistex import md2latex
     parse = md2latex()
 
-    in_file = read_file(AUX_DIR / "invariant-tex")
+    in_file = read_file(AUX_DIR / "invariant.tex")
     result = parse(in_file)
     assert result.strip("\n") == in_file.strip("\n")
 
@@ -40,7 +40,7 @@ def test_no_add_header():
 def test_add_header():
     from mistex import md2latex
     parse = md2latex(filetype="md")
-    in_file = read_file(AUX_DIR / "invariant-tex")
+    in_file = read_file(AUX_DIR / "invariant.tex")
     result = parse(in_file)
     expected = HEAD + in_file + TAIL
     assert result.strip("\n") == expected.strip("\n")

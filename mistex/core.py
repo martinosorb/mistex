@@ -44,17 +44,18 @@ def md2latex(stylefile=None, filetype='auto', cachedir="."):
 
 def tex2pdf(tex_input, pdf_output, cachedir):
     # create cache directory if it doesn't exist
-    cachedir = Path(cachedir)
+    cachedir = Path(cachedir).resolve()
     cachedir.mkdir(exist_ok=True, parents=True)
     # remove extension
-    tex_input = Path(tex_input).with_suffix("")
-    output = cachedir / tex_input
+    tex_input = Path(tex_input).with_suffix(".tex")
+    output = cachedir / tex_input.with_suffix(".pdf").name
+    print("###", cachedir, tex_input, output)
 
     sh = (
-        f"latexmk -pdf -outdir={cachedir} -xelatex -shell-escape {tex_input}.tex;"
+        f"latexmk -pdf -outdir={cachedir} -xelatex -shell-escape {tex_input};"
     )
 
     # execute the latex command in a shell
     call(sh, shell=True)
     # copy the output from the cache dir to here
-    shutil.copy(output.with_suffix(".pdf"), pdf_output)
+    shutil.copy(output, pdf_output)
