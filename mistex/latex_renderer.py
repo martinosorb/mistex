@@ -6,11 +6,11 @@ re_quot_open = re.compile(r'((?<=\s)"|^")')
 
 
 def escape_latex(s, quote=True):
-    s = s.replace("&", "\\&")
-    s = s.replace("%", "\\%")
+    # s = s.replace("&", "\\&")
+    # s = s.replace("%", "\\%")
     s = re_quot_close.sub("''", s)
     s = re_quot_open.sub('``', s)
-    s = s.replace('#', '\\#')
+    # s = s.replace('#', '\\#')
     return s
 
 
