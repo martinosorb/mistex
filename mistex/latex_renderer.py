@@ -99,7 +99,6 @@ class LatexRenderer(BaseRenderer):
         return url
 
     def text(self, text):
-        print(":: ", text)
         return preprocessing(text)
 
     def link(self, link, text=None, title=None):

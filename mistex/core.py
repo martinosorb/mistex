@@ -49,7 +49,6 @@ def tex2pdf(tex_input, pdf_output, cachedir):
     # remove extension
     tex_input = Path(tex_input).with_suffix(".tex")
     output = cachedir / tex_input.with_suffix(".pdf").name
-    print("###", cachedir, tex_input, output)
 
     sh = (
         f"latexmk -pdf -outdir={cachedir} -xelatex -shell-escape {tex_input};"
