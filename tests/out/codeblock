@@ -15,4 +15,6 @@ The following does not have any syntax highlighting:
 Code
 block
 \end{verbatim}
+This is \texttt{inline code}.
+
 \end{document}

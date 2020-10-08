@@ -5,6 +5,8 @@
 
 My favorite search engine is \href{https://duckduckgo.com}{Duck Duck Go}.
 
+Potentially \href{#harmful-link}{harmful links} are removed.
+
 \href{https://www.markdownguide.org}{https://www.markdownguide.org}
 
 \href{mailto:fake@example.com}{fake@example.com}

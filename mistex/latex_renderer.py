@@ -5,13 +5,17 @@ re_quot_close = re.compile(r'("(?=[\s.,:;!?])|"$)')
 re_quot_open = re.compile(r'((?<=\s)"|^")')
 
 
-def escape_latex(s, quote=True):
+def preprocessing(s, quote=True):
     # s = s.replace("&", "\\&")
     # s = s.replace("%", "\\%")
     s = re_quot_close.sub("''", s)
     s = re_quot_open.sub('``', s)
     # s = s.replace('#', '\\#')
     return s
+
+
+def escape_latex(s):
+    return s  # TODO
 
 
 HEADING_LEVELS = [
@@ -41,6 +45,7 @@ class LatexRenderer(BaseRenderer):
                  cachedir=".",
                  ):
         super(LatexRenderer, self).__init__()
+        # TODO escape does nothing. Could be used for md-only mode.
         self._escape = escape
         self._allow_harmful_protocols = allow_harmful_protocols
 
@@ -98,8 +103,8 @@ class LatexRenderer(BaseRenderer):
         return url
 
     def text(self, text):
-        print("::", text)
-        return escape_latex(text)
+        print(":: ", text)
+        return preprocessing(text)
 
     def link(self, link, text=None, title=None):
         self._ensure_pkg('hyperref')
@@ -108,7 +113,7 @@ class LatexRenderer(BaseRenderer):
         if title is not None:
             pass  # TODO
 
-        s = '\\href{' + self._safe_url(link) + '}{' + escape_latex(text) + '}'  # TODO escape
+        s = '\\href{' + self._safe_url(link) + '}{' + text + '}'
         return s
 
     def image(self, src, alt="", title=None):
@@ -133,10 +138,7 @@ class LatexRenderer(BaseRenderer):
         return '\n'
 
     def inline_html(self, html):
-        raise NotImplementedError('inline html')  # TODO
-        # if self._escape:
-        #     return escape_latex(html)
-        # return html
+        return html
 
     def paragraph(self, text):
         return '\n' + text + '\n'
@@ -165,11 +167,7 @@ class LatexRenderer(BaseRenderer):
         return '\\begin{quote}' + text + '\\end{quote}\n'
 
     def block_html(self, html):
-        return html  # TODO
-        # raise NotImplementedError('block html')
-        # if not self._escape:
-        #     return html + '\n'
-        # return '<p>' + escape_html(html) + '</p>\n'
+        return html
 
     def block_error(self, html):
         raise NotImplementedError('block error')  # TODO
