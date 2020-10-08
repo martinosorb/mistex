@@ -1,12 +1,38 @@
 # Mistex
 
+A common criticism of LaTeX is that its syntax is outdated cumbersome, in a way
+that gets in the way of your thoughts while writing. Conversely, markdown has a
+very lightweight syntax that is designed to be easy to read even without compilation
+into a graphical document.
+
+Mistex is a simple tool for cross-compiling markdown code into LaTeX, with the
+peculiarity that markdown and LaTeX syntax can be freely mixed in your source file.
+Using it, you will be able to write markdown and turn it into a LaTeX-style PDF
+document. If you need the full power or LaTeX, you can simply use a little bit
+of markdown as syntactic sugar in your LaTeX source instead. You will never have
+to type `\textbf`, `\begin{enumerate} \item ... \end{enumerate}` and the like again.
+
+Mistex is heavily based on the markdown compiler [`mistune`](https://github.com/lepture/mistune/).
+
+## Understanding mistex
+
+To understand what mistex does, consider the following edge cases:
+- If mistex is called on any LaTeX source file, it should output the same file
+(bugs notwithstanding).
+- If mistex is called on any Markdown file, it will cross-compile it into LaTeX
+code and, optionally, compile the latter into a PDF. All the syntax listed by
+[the markdown guide](https://www.markdownguide.org/basic-syntax) is supported, and more,
+if the best practices therein are respected. The only unexpected things can
+happen if your markdown document contains symbols that have a special role in LaTeX,
+such as `&`, `\`, `%` (and possibily others). These will have to be escaped as
+`\&`, `\backslash` and `\%` respectively.
+
 ## Installation
 
 ### Requirements
-- A working **Python 3** installation. In the commands below, change `python` to `python3`
-and `pip` to `pip3` if relevant for your system.
+- A working **Python 3** installation. In the commands below, change `python` to `python3` and `pip` to `pip3` if the default for your system is python 2.
 - A sufficiently complete **LaTeX** installation, which includes `latexmk` and `xelatex`.
-You won't need this if you're only interested in compiling md to latex.
+You won't need this if you're only interested in cross-compiling markdown to latex.
 
 ### Installing with pip
 ```bash
@@ -15,9 +41,8 @@ cd mistex
 pip install --user .
 ```
 
-*NOTE*: mistex requires `mistune` 2.*. This unfortunately conflics with other packages,
-such as `jupyter`, which use `mistune` version 0.8. If you experience problems, please
-use a virtual environment.
+*NOTE*: mistex requires `mistune>=2.*`. This unfortunately conflics with other packages,
+such as `nbconvert` (used by `jupyter`), which use `mistune` version 0.8.*. If you experience problems, you should consider using virtual environments.
 
 ## Usage
 
@@ -35,6 +60,6 @@ To run mistex followed by the latex compilers, use
 python -m mistex --pdf my_file.md my_out_file.pdf
 ```
 
-Note that auxiliary files are saved in a temporary directory. By default, this
+Note that auxiliary files are saved in a separate directory. By default, this
 is a folder called `latex_cache/your_input_filename`, placed in the output directory.
-If your file contains sensitive information, when you're done compiling, you may want to remove it.
+If your file contains sensitive information, when you're done compiling, you may want to remove it. You can choose a custom cache directory with `--cachedir mydir`.

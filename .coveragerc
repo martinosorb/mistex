@@ -3,5 +3,5 @@ source = mistex
 command_line = -m pytest tests/
 
 [report]
-exclude_lines =
-    raise NotImplementedError
+#exclude_lines =
+#    raise NotImplementedError
