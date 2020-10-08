@@ -4,7 +4,8 @@ python:
   # - "nightly"  # nightly build
 # command to install dependencies
 install:
-  - python setup.py test
+  - pip install pytest-cov
+  - pip install .
 # command to run tests
 script:
   - pytest --cov
