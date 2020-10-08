@@ -18,7 +18,7 @@ Mistex is based on the markdown compiler [`mistune`](https://github.com/lepture/
     + [Installing with pip](#installing-with-pip)
   * [Usage](#usage)
 
-## Understanding mistex
+## HEader
 
 To understand what mistex does, consider the following edge cases:
 - If mistex is called on any LaTeX source file, it should do nothing and output the same file (bugs notwithstanding).
