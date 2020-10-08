@@ -1,15 +1,22 @@
 from pathlib import Path
+import pytest
+import subprocess
 
 HERE = Path(__file__).resolve().parent
 AUX_DIR = HERE / "other_files"
 out_file = HERE / "out.pdf"
 cachedir = HERE / "cache"
 
+# check if the latexmk command exists in the system
+latexmk_not_available = subprocess.call("type latex > /dev/null", shell=True)
+
 
 def test_import():
     from mistex import tex2pdf
+    tex2pdf
 
 
+@pytest.mark.skipif(latexmk_not_available, reason="latexmk not installed")
 def test_compile():
     from mistex import tex2pdf
     assert not out_file.exists()
