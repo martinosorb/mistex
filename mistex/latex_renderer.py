@@ -14,10 +14,6 @@ def preprocessing(s, quote=True):
     return s
 
 
-def escape_latex(s):
-    return s  # TODO
-
-
 HEADING_LEVELS = [
     'chapter*',
     'section*',
@@ -132,7 +128,7 @@ class LatexRenderer(BaseRenderer):
         return '\\textbf{' + text + '}'
 
     def codespan(self, text):
-        return '\\texttt{' + escape_latex(text) + '}'
+        return '\\texttt{' + text + '}'
 
     def linebreak(self):
         return '\n'
