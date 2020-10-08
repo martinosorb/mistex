@@ -1,5 +1,7 @@
 # Mistex
 
+[![Build Status](https://travis-ci.com/martinosorb/mistex.svg?branch=master)](https://travis-ci.com/martinosorb/mistex)
+
 A common criticism of LaTeX is that its syntax is outdated and cumbersome, in a way that gets in the way of your thoughts while writing. Additionally, it leaves many auxiliary files around, which is annoying when you want to write a quick-and-dirty note.
 
 Conversely, markdown has a very lightweight syntax that is designed to be easy to read even without compilation into a graphical document, but is far less powerful.
