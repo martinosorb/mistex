@@ -47,15 +47,17 @@ pip install --user .
 
 The purpose of mistex is to pre-compile your markdown file (or mixed LaTeX-plus-markdown) into a pure LaTeX file that can later be compiled to PDF. To do this, use:
 ```bash
-python -m mistex my_file.md my_out_file.tex
+python -m mistex my_file.md [--out my_out_file.tex]
 ```
+(where the part in square brackets is optional, in case you want a custom output name or location).
 
 Mistex can be used to quickly compile a LaTeX file into a pdf using `xelatex` and `latexmk`.
 It will take care of the auxiliary files (putting them into a separate directory), and will leave you with a clean PDF.
 To run mistex followed by the latex compilers, use
 ```bash
-python -m mistex --pdf my_file.md my_out_file.pdf
+python -m mistex --pdf my_file.md [--out my_out_file.pdf]
 ```
+(again the part in square brackets is optional).
 
 Note that auxiliary files are saved in a separate directory. By default, this
 is a folder called `latex_cache/your_input_filename`, placed in the output directory.
