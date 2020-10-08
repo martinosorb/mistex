@@ -9,6 +9,8 @@ Mistex is a simple tool for cross-compiling markdown code into LaTeX, with thepe
 
 Mistex is based on the markdown compiler [`mistune`](https://github.com/lepture/mistune/).
 
+## Table of contents
+
 - [Mistex](#mistex)
   * [Understanding mistex](#understanding-mistex)
   * [Installation](#installation)
