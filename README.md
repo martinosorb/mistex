@@ -24,7 +24,7 @@ Mistex is based on the markdown compiler [`mistune`](https://github.com/lepture/
 
 To understand what mistex does, consider the following edge cases:
 - If mistex is called on any LaTeX source file, it should do nothing and output the same file (bugs notwithstanding).
-- If mistex is called on any Markdown file, it will cross-compile it into LaTeXcode and, optionally, compile the latter into a PDF. All the syntax listed by[the markdown guide](https://www.markdownguide.org/basic-syntax) is supported, and more,if the best practices therein are respected. The only unexpected things can happen if your markdown document contains symbols that have a special role in LaTeX,such as `&`, `\`, `%` (and possibly others). These will have to be escaped as`\&`, `\backslash` and `\%` respectively.
+- If mistex is called on any Markdown file, it will cross-compile it into LaTeXcode and, optionally, compile the latter into a PDF. All the syntax listed by [the markdown guide](https://www.markdownguide.org/basic-syntax) is supported, and more, if the best practices therein are respected. The only unexpected things can happen if your markdown document contains symbols that have a special role in LaTeX,such as `&`, `\`, `%` (and possibly others). These will have to be escaped as`\&`, `\backslash` and `\%` respectively.
 
 ### Examples
 
@@ -53,7 +53,7 @@ python -m mistex my_file.md [--out my_out_file.tex]
 
 Mistex can be used to quickly compile a LaTeX file into a pdf using `xelatex` and `latexmk`.
 It will take care of the auxiliary files (putting them into a separate directory), and will leave you with a clean PDF.
-To run mistex followed by the latex compilers, use
+To run mistex followed by the latex compilers, use:
 ```bash
 python -m mistex --pdf my_file.md [--out my_out_file.pdf]
 ```
@@ -62,3 +62,15 @@ python -m mistex --pdf my_file.md [--out my_out_file.pdf]
 Note that auxiliary files are saved in a separate directory. By default, this
 is a folder called `latex_cache/your_input_filename`, placed in the output directory.
 If your file contains sensitive information, when you're done compiling, you may want to remove it. You can choose a custom cache directory with `--cachedir mydir`.
+
+## Usage witin TeX IDEs
+
+### TeXShop on Mac OS X
+
+This was not thoroughly tested, but works for me. First, check that your TeXShop directory is `~/Library/TeXShop/`. You can then issue the following command to generate a new "engine" file:
+```bash
+echo "#\!/bin/bash\n$(which python) -m mistex --pdf \"\$1\"" > ~/Library/TeXShop/Engines/mistex.engine
+```
+This should create a file in the Engines directory of TeXShop, containing the mistex command.
+
+Now, open TeXShop again. You should see `mistex` among the list of LaTeX commands (in the drop-down menu together with LaTeX, BibTeX, etc.). Select it, and compile your file. Feedback on this is welcome.
