@@ -1,7 +1,6 @@
 language: python
 os:
   - linux
-  - windows
 python:
   - "3.6"      # current default Python on Travis CI
   # - "nightly"  # nightly build
