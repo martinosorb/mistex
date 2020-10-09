@@ -44,7 +44,7 @@ def md2latex(stylefile=None, filetype='auto', cachedir="."):
 
 def tex2pdf(tex_input, pdf_output, cachedir):
     # create cache directory if it doesn't exist
-    cachedir = Path(cachedir).resolve()
+    cachedir = Path(cachedir)
     cachedir.mkdir(exist_ok=True, parents=True)
     # remove extension
     tex_input = Path(tex_input).with_suffix(".tex")

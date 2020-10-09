@@ -30,7 +30,7 @@ if args.out is None:
         args.out = str(Path(args.input_file).with_suffix("")) + "_mis.tex"
 if args.cachedir is None:
     # we put the cache in output_folder/latex_cache/input_file_name
-    output_folder = Path(args.out).resolve().parent
+    output_folder = Path(args.out).parent
     input_file_name = Path(args.input_file).stem
     args.cachedir = output_folder / "latex_cache" / input_file_name
 
