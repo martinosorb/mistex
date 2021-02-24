@@ -101,6 +101,9 @@ class LatexRenderer(BaseRenderer):
     def text(self, text):
         return preprocessing(text)
 
+    def donotparse(self, text):
+        return text
+
     def link(self, link, text=None, title=None):
         self._ensure_pkg('hyperref')
         if text is None:
@@ -119,6 +122,9 @@ class LatexRenderer(BaseRenderer):
             s += '        \\caption{' + alt + '}\n'
         s += '    \\end{center}\n\\end{figure}'
         return s
+
+    def ignored_block(self, text):
+        return '\n' + text + '\n'
 
     def emphasis(self, text):
         return '\\textit{' + text + '}'

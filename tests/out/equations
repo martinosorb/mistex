@@ -1,0 +1,13 @@
+\documentclass{report}
+\date{}
+\begin{document}
+
+Some text in which I add an equation: $a*b*c$.
+ $$ a *b*
+ c $$
+more a\textit{b}c
+ \[ a *b*
+ c \]
+more a\textit{b}c
+
+\end{document}
