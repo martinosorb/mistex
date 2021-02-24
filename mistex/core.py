@@ -5,12 +5,21 @@ import shutil
 from mistune import Markdown
 
 from .latex_renderer import LatexRenderer
-from .plugins import plugin_citation
+from .plugins.citation import plugin_citation
+from .plugins.equation import plugin_equation
+
+PLUGINS = [plugin_citation]
 
 
-def read_file(filename):
-    with open(filename) as file:
-        return file.read()
+def read_file(filename, escape_double_backslash=True):
+    with open(filename, "rb") as f:
+        file = f.read()
+    file = file.decode('utf-8')
+    if escape_double_backslash:
+        file = file.replace(r'\\', r'\\\\')
+        # file = file.replace(r'\[', r'$$')
+        # file = file.replace(r'\]', r'$$')
+    return file
 
 
 def tail_head_linker(markdown_instance, result, state):
@@ -28,7 +37,7 @@ def auto_tail_head(markdown_instance, result, state):
 
 def md2latex(stylefile=None, filetype='auto', cachedir="."):
     reader = Markdown(LatexRenderer(stylefile=stylefile, cachedir=cachedir),
-                      plugins=[plugin_citation])
+                      plugins=PLUGINS)
 
     if filetype in ['markdown', 'md']:
         reader.after_render_hooks = [tail_head_linker]

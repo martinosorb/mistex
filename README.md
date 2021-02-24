@@ -63,14 +63,18 @@ Note that auxiliary files are saved in a separate directory. By default, this
 is a folder called `latex_cache/your_input_filename`, placed in the output directory.
 If your file contains sensitive information, when you're done compiling, you may want to remove it. You can choose a custom cache directory with `--cachedir mydir`.
 
-## Usage witin TeX IDEs
+## Usage within TeX IDEs
 
 ### TeXShop on Mac OS X
 
-This was not thoroughly tested, but works for me. First, check that your TeXShop directory is `~/Library/TeXShop/`. You can then issue the following command to generate a new "engine" file:
+This was not thoroughly tested, but works for me:
+- First, check that your TeXShop directory is `~/Library/TeXShop/`. If not, change the path in the command below.
+- You can then issue the following command to generate a new "engine" file:
 ```bash
 echo "#\!/bin/bash\n$(which python) -m mistex --pdf \"\$1\"" > ~/Library/TeXShop/Engines/mistex.engine
 ```
 This should create a file in the Engines directory of TeXShop, containing the mistex command.
+If you use a virtual environment, make sure it is active while you do this (`which python` needs to give the correct result). If you use pyenv-virtualenv, use `pyenv which` instead of `which`.
+- Now, open TeXShop again. You should see `mistex` among the list of LaTeX commands (in the drop-down menu together with LaTeX, BibTeX, etc.). Select it, and compile your file.
 
-Now, open TeXShop again. You should see `mistex` among the list of LaTeX commands (in the drop-down menu together with LaTeX, BibTeX, etc.). Select it, and compile your file. Feedback on this is welcome.
+Feedback on this is welcome.

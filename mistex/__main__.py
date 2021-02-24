@@ -1,6 +1,6 @@
-import mistex
 import argparse
 from pathlib import Path
+from .core import read_file, md2latex, tex2pdf
 
 GENERATED_TEX = Path("mistex_out.tex")
 stylefile = None
@@ -36,7 +36,8 @@ if args.cachedir is None:
 
 
 # run the md parser
-rendered_file = mistex.md2latex(stylefile=stylefile, cachedir=args.cachedir).read(args.input_file)
+renderer = md2latex(stylefile=stylefile, cachedir=args.cachedir)
+rendered_file = renderer.parse(read_file(args.input_file))
 # save the result to the tmp directory
 saved_pure_tex = GENERATED_TEX if args.pdf else args.out
 with open(saved_pure_tex, "w") as F:
@@ -44,5 +45,5 @@ with open(saved_pure_tex, "w") as F:
 
 if args.pdf:
     # compile the result we just saved
-    mistex.tex2pdf(GENERATED_TEX, args.out, args.cachedir)
+    tex2pdf(GENERATED_TEX, args.out, args.cachedir)
     GENERATED_TEX.unlink()

@@ -13,7 +13,7 @@ IN_FILES = [f.name for f in IN_DIR.rglob("*")]
 def load_in_out(request):
     fname = request.param
     in_file = read_file(IN_DIR / fname)
-    out_file = read_file(OUT_DIR / fname)
+    out_file = read_file(OUT_DIR / fname, escape_double_backslash=False)
     return in_file, out_file
 
 
