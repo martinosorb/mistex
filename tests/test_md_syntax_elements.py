@@ -22,7 +22,7 @@ def test_compare(load_in_out):
     out_file = out_file.strip("\n")
 
     from mistex import md2latex
-    parse = md2latex(filetype='md')
+    parse = md2latex(filetype='tex')
     result = parse(in_file).strip("\n")
 
     print("----- EXPECTED -----")

@@ -1,7 +1,3 @@
-\documentclass{report}
-\date{}
-\begin{document}
-
 \chapter*{First}
 \section*{Second}
 \section*{Second again}
@@ -16,4 +12,3 @@ A whole paragraph.
 And its text.
 
 \subparagraph*{Sixth level}
-\end{document}

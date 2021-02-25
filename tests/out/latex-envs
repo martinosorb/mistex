@@ -1,7 +1,3 @@
-\documentclass{report}
-\date{}
-\begin{document}
-
  \begin{equation} Stuff a*b*c
  that is in equations a*b*c
  should never be changed. \end{equation}
@@ -15,5 +11,3 @@
 \begin{otherenv} Stuff a\textit{b}c
 that is in other environments a\textit{b}c
 should be parsed normally. \end{otherenv}
-
-\end{document}

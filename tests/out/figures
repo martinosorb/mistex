@@ -1,8 +1,3 @@
-\documentclass{report}
-\usepackage{graphicx}
-\date{}
-\begin{document}
-
 First paragraph.
 
 \begin{figure}[h!]
@@ -13,5 +8,3 @@ First paragraph.
 \end{figure}
 
 Second paragraph.
-
-\end{document}

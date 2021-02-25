@@ -1,8 +1,3 @@
-\documentclass{report}
-\usepackage[outputdir=.]{minted}
-\date{}
-\begin{document}
-
 \begin{minted}{python}
 import numpy as np
 
@@ -16,5 +11,3 @@ Code
 block
 \end{verbatim}
 This is \texttt{inline code}.
-
-\end{document}

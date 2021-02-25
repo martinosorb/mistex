@@ -1,7 +1,3 @@
-\documentclass{report}
-\date{}
-\begin{document}
-
 \begin{enumerate}
     \item First item
     \item Second item
@@ -45,4 +41,3 @@ Par
 \end{enumerate}
     \item Fourth item
 \end{enumerate}
-\end{document}
