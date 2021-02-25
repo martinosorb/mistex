@@ -8,17 +8,18 @@ from .latex_renderer import LatexRenderer
 from .plugins.citation import plugin_citation
 from .plugins.equation import plugin_equation
 
-PLUGINS = [plugin_citation]
+PLUGINS = [plugin_citation, plugin_equation]
 
 
-def read_file(filename, escape_double_backslash=True):
+def _parse_escape(m, state):
+    text = m.group(0)
+    return 'text', text
+
+
+def read_file(filename):
     with open(filename, "rb") as f:
         file = f.read()
     file = file.decode('utf-8')
-    if escape_double_backslash:
-        file = file.replace(r'\\', r'\\\\')
-        # file = file.replace(r'\[', r'$$')
-        # file = file.replace(r'\]', r'$$')
     return file
 
 
@@ -38,6 +39,8 @@ def auto_tail_head(markdown_instance, result, state):
 def md2latex(stylefile=None, filetype='auto', cachedir="."):
     reader = Markdown(LatexRenderer(stylefile=stylefile, cachedir=cachedir),
                       plugins=PLUGINS)
+
+    reader.inline.parse_escape = _parse_escape
 
     if filetype in ['markdown', 'md']:
         reader.after_render_hooks = [tail_head_linker]

@@ -2,3 +2,4 @@ The double backslash \\ is unfortunately used by latex. \\
 Therefore\\should stay as it is.
 
 For the same reason, \n should stay as it is.
+\% \$ \/ \& are all examples of the same.
