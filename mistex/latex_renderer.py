@@ -184,3 +184,6 @@ class LatexRenderer(BaseRenderer):
 
     def list_item(self, text, level):
         return '    \\item ' + text + '\n'
+
+    def finalize(self, data):
+        return ''.join(data)
