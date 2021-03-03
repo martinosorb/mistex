@@ -5,3 +5,5 @@ more a\textit{b}c
  \[ a *b*
  c \]
 more a\textit{b}c
+     \[ a *b* c \]
+a

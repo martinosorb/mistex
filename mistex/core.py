@@ -37,10 +37,16 @@ def auto_tail_head(markdown_instance, result, state):
 
 
 def md2latex(stylefile=None, filetype='auto', cachedir="."):
-    reader = Markdown(LatexRenderer(stylefile=stylefile, cachedir=cachedir),
-                      plugins=PLUGINS)
+    reader = Markdown(
+        LatexRenderer(stylefile=stylefile, cachedir=cachedir),
+        plugins=PLUGINS
+    )
 
+    # make the rule that un-escapes \$ \& \% etc do nothing
+    # reader.inline.rules.remove("escape") causes problems with \ at the end of lines.
     reader.inline.parse_escape = _parse_escape
+    # remove the rule that considers indented blocks as verbatim code.
+    reader.block.rules.remove("indent_code")
 
     if filetype in ['markdown', 'md']:
         reader.after_render_hooks = [tail_head_linker]

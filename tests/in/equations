@@ -5,3 +5,6 @@ Some text in which I add an equation: $a*b*c$.
 
  \[ a *b*
  c \]more a*b*c
+ 
+     \[ a *b* c \]
+a
