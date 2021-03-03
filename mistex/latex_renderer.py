@@ -6,12 +6,6 @@ re_2quot_open = re.compile(r'\B"\b')
 re_1quot_open = re.compile(r"\B'\b")
 
 
-def preprocessing(s, quote=True):
-    s = re_2quot_open.sub('``', s)
-    s = re_1quot_open.sub("`", s)
-    return s
-
-
 HEADING_LEVELS = [
     'chapter*',
     'section*',
@@ -97,7 +91,9 @@ class LatexRenderer(BaseRenderer):
         return url
 
     def text(self, text):
-        return preprocessing(text)
+        text = re_2quot_open.sub('``', text)
+        text = re_1quot_open.sub("`", text)
+        return text
 
     def donotparse(self, text):
         return text
@@ -152,6 +148,7 @@ class LatexRenderer(BaseRenderer):
         return '\\par\\bigskip\\noindent\\hrulefill\\par\\bigskip\n'
 
     def block_text(self, text):
+        breakpoint()
         return text
 
     def block_code(self, code, info=None):
