@@ -1,9 +1,9 @@
 - Currently tex2pdf does not work with files that don't end in .tex
-- footnote / biblio stuff
-- figure out what block error is and when link text is None by looking at parser; same for line break.
+- footnote / biblio stuff requires tests
+- line break, is it dealt with correctly?
 - test on windows
 - filetype detection is bad. There should be a flag. Deactivation of \& unescaping
-  should be optional on md-only. can also escape latex.
+  should be optional on md-only. Can also escape latex in that mode.
 
 Priority:
 - Single line \[ \] match does not work. This is actually necessary and is
