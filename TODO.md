@@ -3,7 +3,6 @@
 - escape latex (create md only mode?)
 - figure out what block error is and when link text is None by looking at parser; same for line break.
 - test on windows
-- remove add_header in renderer class (or use it)
 - 'escape' in renderer class
 - filetype detection is bad. There should be a flag. Deactivation of \& unescaping should be optional on md-only.
 

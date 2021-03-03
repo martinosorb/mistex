@@ -27,28 +27,20 @@ class LatexRenderer(BaseRenderer):
         self,
         allow_harmful_protocols=None,
         stylefile=None,
-        add_header=True,
         cachedir=".",
     ):
 
         super(LatexRenderer, self).__init__()
-
         self._allow_harmful_protocols = allow_harmful_protocols
-
-        self.add_header = add_header
         self.cachedir = cachedir
-
         self.packages = []
         self.pkg_opt = {}
         self.tail_string = "\n\\end{document}"
 
     def tail(self):
-        return self.tail_string if self.add_header else ''
+        return self.tail_string
 
     def head(self):
-        if not self.add_header:
-            return ''
-
         head = "\\documentclass{report}\n"
 
         for pkg in self.packages:
