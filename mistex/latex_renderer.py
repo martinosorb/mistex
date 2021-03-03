@@ -91,13 +91,9 @@ class LatexRenderer(BaseRenderer):
         return text
 
     def link(self, link, text=None, title=None):
+        # `title` is ignored.
         self._ensure_pkg('hyperref')
-        if text is None:
-            text = link
-        if title is not None:
-            pass  # TODO
-
-        s = '\\href{' + self._safe_url(link) + '}{' + text + '}'
+        s = '\\href{' + self._safe_url(link) + '}{' + (text or link) + '}'
         return s
 
     def image(self, src, alt="", title=None):
