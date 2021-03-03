@@ -1,0 +1,15 @@
+This is `inline code`.
+
+Double apices are accepted inside `inline " code` like this.
+
+Two separate single-apex latex quotes are not `inline code', `however'.
+
+This is ``inline code``.
+
+Single apices are accepted inside ``inline ' code`` like this.
+
+This should not be captured as ``inline code'', ``however''.
+
+This should not be captured as ``inline code", ``either".
+
+When using three, everything is code ```"a", 'b', `c` ```.

@@ -1,14 +1,14 @@
 from mistune.renderers import BaseRenderer
 import re
 
-re_quot_close = re.compile(r'("(?=[\s.,:;!?])|"$)')
+# re_quot_close = re.compile(r'("(?=[\s.,:;!?])|"$)')
 re_quot_open = re.compile(r'((?<=\s)"|^")')
 
 
 def preprocessing(s, quote=True):
     # s = s.replace("&", "\\&")
     # s = s.replace("%", "\\%")
-    s = re_quot_close.sub("''", s)
+    # s = re_quot_close.sub("''", s)
     s = re_quot_open.sub('``', s)
     # s = s.replace('#', '\\#')
     return s

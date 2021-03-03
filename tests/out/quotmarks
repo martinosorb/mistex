@@ -2,8 +2,8 @@
 
 `same for single apices'
 
-``conversely, quotation marks should be converted to latex-style''
+``conversely, quotation marks should be converted to latex-style"
 
 'but not (yet) for single apices.'
 
-The behaviour should be consistent in 'single line' or ``single line'' cases.
+The behaviour should be consistent in 'single line' or ``single line" cases.
