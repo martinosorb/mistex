@@ -1,5 +1,4 @@
 - Currently tex2pdf does not work with files that don't end in .tex
-- The single apices are not corrected into backticks.
 - footnote / biblio stuff
 - escape latex (create md only mode?)
 - figure out what block error is and when link text is None by looking at parser; same for line break.
@@ -12,6 +11,3 @@ Priority:
 - Bad things happen with double-backticks already present
 - Single line \[ \] match does not work. This is actually necessary and is
 the last thing missing for the thesis to run.
-
-Problems in the PDF:
-- there are spurious verbatims (see lay summary)

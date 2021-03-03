@@ -4,6 +4,8 @@
 
 ``conversely, quotation marks should be converted to latex-style"
 
-'but not (yet) for single apices.'
+`same for single apices.'
 
-The behaviour should be consistent in 'single line' or ``single line" cases.
+The behaviour should be consistent in `single line' or ``single line" cases.
+
+The apostrophe's not affected. Latex comm\'ands also not affected.

@@ -48,6 +48,7 @@ def md2latex(stylefile=None, filetype='auto', cachedir="."):
     reader.inline.parse_escape = _parse_escape
     # remove the rule that considers indented blocks as verbatim code.
     reader.block.rules.remove("indent_code")
+    reader.block.rules.remove("block_html")
 
     if filetype in ['markdown', 'md']:
         reader.after_render_hooks = [tail_head_linker]

@@ -2,15 +2,13 @@ from mistune.renderers import BaseRenderer
 import re
 
 # re_quot_close = re.compile(r'("(?=[\s.,:;!?])|"$)')
-re_quot_open = re.compile(r'((?<=\s)"|^")')
+re_2quot_open = re.compile(r'\B"\b')
+re_1quot_open = re.compile(r"\B'\b")
 
 
 def preprocessing(s, quote=True):
-    # s = s.replace("&", "\\&")
-    # s = s.replace("%", "\\%")
-    # s = re_quot_close.sub("''", s)
-    s = re_quot_open.sub('``', s)
-    # s = s.replace('#', '\\#')
+    s = re_2quot_open.sub('``', s)
+    s = re_1quot_open.sub("`", s)
     return s
 
 
@@ -167,12 +165,9 @@ class LatexRenderer(BaseRenderer):
     def block_quote(self, text):
         return '\\begin{quote}' + text + '\\end{quote}\n'
 
-    def block_html(self, html):
-        return html
-
-    def block_error(self, html):
-        raise NotImplementedError('block error')  # TODO
-        # return '<div class="error">' + html + '</div>\n'
+    def block_error(self, text):
+        self._ensure_pkg('xcolor')
+        return '{\\color{red}' + text + '}'
 
     def list(self, text, ordered, level, start=None):
         if ordered:
