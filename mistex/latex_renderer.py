@@ -6,38 +6,35 @@ re_2quot_open = re.compile(r'\B"\b')
 re_1quot_open = re.compile(r"\B'\b")
 
 
-HEADING_LEVELS = [
-    'chapter*',
-    'section*',
-    'subsection*',
-    'subsubsection*',
-    'paragraph*',
-    'subparagraph*',
-    'subparagraph*'
-]
-
-
 class LatexRenderer(BaseRenderer):
-    # NAME = 'latex'
-    # IS_TREE = False
+    HEADING_LEVELS = [
+        'chapter*',
+        'section*',
+        'subsection*',
+        'subsubsection*',
+        'paragraph*',
+        'subparagraph*',
+        'subparagraph*'
+    ]
+
     HARMFUL_PROTOCOLS = {
         'javascript:',
         'vbscript:',
         'data:',
     }
 
-    def __init__(self, escape=True,
-                 allow_harmful_protocols=None,
-                 stylefile=None,
-                 add_header=True,
-                 cachedir=".",
-                 ):
+    def __init__(
+        self,
+        allow_harmful_protocols=None,
+        stylefile=None,
+        add_header=True,
+        cachedir=".",
+    ):
+
         super(LatexRenderer, self).__init__()
-        # TODO escape does nothing. Could be used for md-only mode.
-        self._escape = escape
+
         self._allow_harmful_protocols = allow_harmful_protocols
 
-        self.stylefile = stylefile
         self.add_header = add_header
         self.cachedir = cachedir
 
@@ -53,8 +50,7 @@ class LatexRenderer(BaseRenderer):
             return ''
 
         head = "\\documentclass{report}\n"
-        if self.stylefile is not None:
-            head += "\\input{" + self.stylefile.split('.tex') + "}\n"
+
         for pkg in self.packages:
             head += "\\usepackage"
             if pkg in self.pkg_opt:
@@ -93,6 +89,10 @@ class LatexRenderer(BaseRenderer):
     def text(self, text):
         text = re_2quot_open.sub('``', text)
         text = re_1quot_open.sub("`", text)
+
+        # if self._escape:
+        #     text = escape_latex(text)
+
         return text
 
     def donotparse(self, text):
@@ -139,7 +139,7 @@ class LatexRenderer(BaseRenderer):
         return '\n' + text + '\n'
 
     def heading(self, text, level):
-        return '\n\\' + HEADING_LEVELS[level - 1] + '{' + text + '}'
+        return '\n\\' + self.HEADING_LEVELS[level - 1] + '{' + text + '}'
 
     def newline(self):
         return ''
@@ -148,7 +148,7 @@ class LatexRenderer(BaseRenderer):
         return '\\par\\bigskip\\noindent\\hrulefill\\par\\bigskip\n'
 
     def block_text(self, text):
-        breakpoint()
+        # this is also processed by `text` above
         return text
 
     def block_code(self, code, info=None):
