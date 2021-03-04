@@ -1,13 +1,12 @@
 Parts of this library include modified code from the mistune library.
 In particular, but not exclusively:
- - The general structure and method names of the renderer.
- - The general structure of the plugins.
- - Some regular expressions, modified.
- - The parser methods in plugins/table.py.
+ - The general structure and method names of the renderer and of some plugins;
+ - The parser methods in `plugins/table.py`, with only small modifications.
 
 Mistune is written by Hsiaoming Yang.
 The following notice applies to all code derived from mistune:
 
+---
 Copyright (c) 2014, Hsiaoming Yang
 
 All rights reserved.
@@ -22,3 +21,5 @@ Redistribution and use in source and binary forms, with or without modification,
 
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+---
