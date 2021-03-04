@@ -1,4 +1,3 @@
-Some text in which I add an equation: $a*b*c$.
  $$ a *b*
  c $$
 more a\textit{b}c
@@ -7,3 +6,7 @@ more a\textit{b}c
 more a\textit{b}c
      \[ a *b* c \]
 a
+
+Within a line a\textit{b}c, $a *b* c$, etc.
+
+Within a line a\textit{b}c, $$a *b* c$$, etc.

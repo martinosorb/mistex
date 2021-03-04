@@ -1,7 +1,7 @@
  \begin{equation} Stuff a*b*c
  that is in equations a*b*c
  should never be changed. \end{equation}
- 
+
    \begin{equation}
  Stuff a*b*c
  that is in equations a*b*c
@@ -11,3 +11,5 @@
 \begin{otherenv} Stuff a*b*c
 that is in other environments a*b*c
 should be parsed normally. \end{otherenv}
+
+\begin{equation} a*b*c \end{equation}

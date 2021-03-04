@@ -11,3 +11,5 @@
 \begin{otherenv} Stuff a\textit{b}c
 that is in other environments a\textit{b}c
 should be parsed normally. \end{otherenv}
+
+\begin{equation} a*b*c \end{equation}

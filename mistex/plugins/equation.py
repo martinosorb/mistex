@@ -4,6 +4,7 @@ import re
 UNPARSED_LATEX_GROUPS = ['equation', 'eqnarray']
 
 EQN_INLINE_PATTERN = r'\$(.+?)\$(?!\$)'
+# EQN_INLINE_PATTERN = r'\\\[(.+?)\\\]'
 EQN_BLOCK_PATTERN = re.compile(
     r' *(\$\$([\S\s]+?)\$\$|\\\[([\S\s]+?)\\\])'
 )
@@ -14,7 +15,6 @@ LATEX_ENV_PATTERN = re.compile(
     r' *\\begin\{(' + group_names_r + r'\*?)\}(.*?)\\end\{\1\}',
     re.DOTALL
 )
-# LATEX_ENV_PATTERN = re.compile(r' *\\begin\{([a-z]*\*?)\}(.*?)\\end\{\1\}', re.DOTALL)
 
 
 def parse_block_eqn(self, m, state):
@@ -29,8 +29,6 @@ def parse_block_env(self, m, state):
 
 # define how to parse matched item
 def donotparse(self, m, state):
-    # ``self`` is ``md.inline``, see below
-    # ``m`` is matched regex item
     text = m[0]  # the whole thing
     return 'donotparse', text
 
@@ -44,6 +42,3 @@ def plugin_equation(md):
 
     md.block.register_rule('tex_ignored_env', LATEX_ENV_PATTERN, parse_block_env)
     md.block.rules.append('tex_ignored_env')
-
-    # md.block.register_rule('block_equation', EQN_BLOCK_PATTERN, parse_block_equation)
-    # md.block.rules.append('block_equation')
