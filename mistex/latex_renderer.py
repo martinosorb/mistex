@@ -165,5 +165,30 @@ class LatexRenderer(BaseRenderer):
     def list_item(self, text, level):
         return '    \\item ' + text + '\n'
 
+    def table(self, text, aligns):
+        # turn 'left', 'right', 'center', None into l, r, c, l
+        aligns = ['l' if align is None else align[0] for align in aligns]
+        columns = '|'.join(aligns)
+
+        table = '\n\\begin{center}\\begin{tabular}{|' + columns + '|}\n'
+        table += text
+        table += '\\end{tabular}\\end{center}\n'
+        return table
+
+    def table_head(self, text):
+        return "\\hline\n" + self.table_row(text)
+
+    def table_body(self, text):
+        return text
+
+    def table_row(self, text):
+        return "    " + text.rstrip("& ") + r" \\ " + "\\hline\n"
+
+    def table_cell(self, text, align=None, is_head=False):
+        if is_head:
+            text = '\\textbf{' + text + '}'
+
+        return text + " & "
+
     def finalize(self, data):
         return ''.join(data)

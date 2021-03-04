@@ -1,0 +1,13 @@
+\begin{center}\begin{tabular}{|l|c|r|}
+\hline
+    \textbf{Syntax} & \textbf{Description} & \textbf{Test Text} \\ \hline
+    Header & Title & Here's this \\ \hline
+    Paragraph & Text & And more \\ \hline
+\end{tabular}\end{center}
+
+\begin{center}\begin{tabular}{|l|l|}
+\hline
+    \textbf{Syntax} & \textbf{Description} \\ \hline
+    Header & Title \\ \hline
+    Paragraph & Text \\ \hline
+\end{tabular}\end{center}

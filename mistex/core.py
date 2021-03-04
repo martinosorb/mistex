@@ -8,8 +8,9 @@ from .latex_renderer import LatexRenderer
 from .plugins.citation import plugin_citation
 from .plugins.equation import plugin_equation
 from .plugins.codespan import plugin_codespan
+from .plugins.table import plugin_table
 
-PLUGINS = [plugin_citation, plugin_equation, plugin_codespan]
+PLUGINS = [plugin_citation, plugin_equation, plugin_codespan, plugin_table]
 
 
 def _parse_escape(m, state):
