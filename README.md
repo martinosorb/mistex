@@ -8,7 +8,7 @@ Conversely, markdown has a very lightweight syntax that is designed to be easy t
 
 Mistex is a simple tool for cross-compiling markdown code into LaTeX, with the peculiarity that markdown and LaTeX syntax can be freely mixed in your source file. Using it, you will be able to write markdown and turn it into a LaTeX-style PDF document. If you need the full power or LaTeX, you can simply use a little bit of markdown as syntactic sugar in your LaTeX source instead. You will never have to type `\textbf`, `\begin{enumerate} \item ... \end{enumerate}` and the like again.
 
-Mistex is based on the markdown compiler [`mistune`](https://github.com/lepture/mistune/).
+Mistex is based on the markdown compiler [`mistune`](https://github.com/lepture/mistune/), but should not be considered endorsed by its author, who retains copyright on the code derived from it (please see LICENSE.md).
 
 ## Table of contents
 
