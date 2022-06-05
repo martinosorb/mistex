@@ -24,17 +24,22 @@ def read_file(filename):
     return file
 
 
-def tail_head_linker(markdown_instance, result, state):
-    head = markdown_instance.renderer.head()
-    tail = markdown_instance.renderer.tail()
-    return head + result + tail
+# def tail_head_linker(markdown_instance, result, state):
+#     head = markdown_instance.renderer.head()
+#     tail = markdown_instance.renderer.tail()
+#     return head + result + tail
+#
+#
+# def auto_tail_head(markdown_instance, result, state):
+#     # automatically figure out if there is a latex header
+#     if '\\documentclass' in result:  # TODO this could be sped up
+#         return result
+#     return tail_head_linker(markdown_instance, result, state)
 
-
-def auto_tail_head(markdown_instance, result, state):
-    # automatically figure out if there is a latex header
-    if '\\documentclass' in result:  # TODO this could be sped up
-        return result
-    return tail_head_linker(markdown_instance, result, state)
+def make_document(markdown_instance, result, state):
+    document = markdown_instance.renderer.document
+    document.data = result
+    return document.dumps()
 
 
 def md2latex(stylefile=None, filetype='auto', cachedir="."):
@@ -44,20 +49,12 @@ def md2latex(stylefile=None, filetype='auto', cachedir="."):
     )
 
     # make the rule that un-escapes \$ \& \% etc do nothing
-    # reader.inline.rules.remove("escape") causes problems with \ at the end of lines.
+    # reader.inline.rules.remove("escape")  # causes problems with \ at the end of lines.
     reader.inline.parse_escape = _parse_escape
     # remove the rule that considers indented blocks as verbatim code.
-    reader.block.rules.remove("indent_code")
+    # reader.block.rules.remove("indent_code")
     reader.block.rules.remove("block_html")
-
-    if filetype in ['markdown', 'md']:
-        reader.after_render_hooks = [tail_head_linker]
-    elif filetype == 'auto':
-        reader.after_render_hooks = [auto_tail_head]
-    elif filetype in ['latex', 'tex']:
-        pass
-    else:
-        raise ValueError(f"File type '{filetype}' not understood.")
+    reader.after_render_hooks = [make_document]
 
     return reader
 
