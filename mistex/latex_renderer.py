@@ -29,14 +29,12 @@ class LatexRenderer(BaseRenderer):
     def __init__(
         self,
         allow_harmful_protocols=None,
-        stylefile=None,
         cachedir=".",
     ):
 
         super(LatexRenderer, self).__init__()
         self._allow_harmful_protocols = allow_harmful_protocols
         self.cachedir = cachedir
-        self.document = pl.Document(documentclass="report")
 
     # def _ensure_bib(self):
     #     if '\\bibliographystyle' not in self.tail_string:

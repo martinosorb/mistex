@@ -3,8 +3,11 @@
 - Descriptions have problems with multiline. Do this after solving the previous.
 - Problem with items in lists: too many spaces, latex does buggy things
 - Smart ellipsis and quotation marks
+- Thematic break to be made pylatex-onic.
 - Tables:
   - require more space before and after; maybe use `table` instead of `tabular`
   - doesn't work with hlines on top and bottom
   - doesn't work without vertical bars
   - haven't tested alignments
+- (Severe): .tex files get removed when the pdf is generated, unclear why.
+- Test what happens with non trivial input and output paths.

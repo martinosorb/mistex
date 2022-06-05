@@ -1,49 +1,58 @@
 import argparse
+import os
 from pathlib import Path
-from .core import read_file, md2latex, tex2pdf
+from .core import md2latex
 
-GENERATED_TEX = Path("mistex_out.tex")
-stylefile = None
+
+def read_file(filename):
+    with open(filename, "rb") as f:
+        file = f.read()
+    file = file.decode('utf-8')
+    return file
 
 
 parser = argparse.ArgumentParser()
 parser.add_argument("input_file", help="Input file.", type=str, default=None)
-parser.add_argument(
-    "--out", help="Output file.", type=str, default=None
-)
-parser.add_argument(
-    "--pdf", action="store_true",
-    help="Also compile the resulting pure-tex file to pdf using latexmk."
-)
-parser.add_argument(
-    "--cachedir", default=None,
-    help="Assign a custom directory for LaTeX compilation and auxiliary files."
-)
+parser.add_argument("--out", help="Output file.", type=str, default=None)
+parser.add_argument("--pdf", action="store_true", help="Also compile the resulting pure-tex file to pdf using latexmk.")
+parser.add_argument("--cachedir", default=None, help="Assign a custom directory for LaTeX compilation and auxiliary files.")
 args = parser.parse_args()
 
 if args.input_file is None:
     raise ValueError('No input files.')
+
 if args.out is None:
-    if args.pdf:
-        args.out = Path(args.input_file).with_suffix(".pdf")
-    else:
-        args.out = str(Path(args.input_file).with_suffix("")) + "_mis.tex"
+    # another suffix will be added later, either .pdf or .tex
+    out = Path(args.input_file).with_suffix(".mistex")
+else:
+    out = Path(args.out).with_suffix("")
+output_folder = out.parent
+output_folder.mkdir(parents=True, exist_ok=True)
+
 if args.cachedir is None:
     # we put the cache in output_folder/latex_cache/input_file_name
-    output_folder = Path(args.out).parent
-    input_file_name = Path(args.input_file).stem
-    args.cachedir = output_folder / "latex_cache" / input_file_name
+    cachedir = output_folder / "mistex_cache" / Path(args.input_file).stem
+else:
+    cachedir = Path(args.cachedir)
 
+COMPILER = "latexmk"
+FLAGS = [
+    "-pdf",
+    f"--outdir={cachedir}",
+    "-xelatex",
+    "-shell-escape",
+]
 
 # run the md parser
-renderer = md2latex(stylefile=stylefile, cachedir=args.cachedir)
-rendered_file = renderer.parse(read_file(args.input_file))
-# save the result to the tmp directory
-saved_pure_tex = GENERATED_TEX if args.pdf else args.out
-with open(saved_pure_tex, "w") as F:
-    F.write(rendered_file)
+reader = md2latex(cachedir=cachedir)
+pylatex_document = reader.parse(read_file(args.input_file))
 
+# save the result to the tmp directory
 if args.pdf:
-    # compile the result we just saved
-    tex2pdf(GENERATED_TEX, args.out, args.cachedir)
-    GENERATED_TEX.unlink()
+    # pdf output name is the name only! the folder is the cache dir
+    pylatex_document.generate_pdf(out.name, compiler=COMPILER, compiler_args=FLAGS)
+    # copy the output PDF from the cache dir to here
+    pdf_out_name = out.name + ".pdf"
+    os.replace(cachedir / pdf_out_name, Path.cwd() / pdf_out_name)
+else:
+    pylatex_document.generate_tex(str(out))
