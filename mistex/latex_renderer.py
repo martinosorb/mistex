@@ -4,8 +4,9 @@ import pylatex as pl
 from .pylatex_classes import Minted, LatexList, Href, Verbatim
 
 # re_quot_close = re.compile(r'("(?=[\s.,:;!?])|"$)')
-re_2quot_open = re.compile(r'\B"\b')
-re_1quot_open = re.compile(r"\B'\b")
+# re_2quot_open = re.compile(r'\B"\b')
+# re_1quot_open = re.compile(r"\B'\b")
+re_surrounding_newline = re.compile(r"(^\n+|\n+$)")
 
 
 class LatexRenderer(BaseRenderer):
@@ -58,8 +59,9 @@ class LatexRenderer(BaseRenderer):
         return url
 
     def text(self, text):
-        text = re_2quot_open.sub('``', text)
-        text = re_1quot_open.sub("`", text)
+        # text = re_2quot_open.sub('``', text)
+        # text = re_1quot_open.sub("`", text)
+        text = re_surrounding_newline.sub(" ", text)
         return pl.NoEscape(text)
 
     def donotparse(self, text):
@@ -122,6 +124,7 @@ class LatexRenderer(BaseRenderer):
             env = Minted(lang, self.cachedir)
         else:
             env = Verbatim()
+        code = code.rstrip("\n")
         env.append(pl.NoEscape(code))
         return env
 
