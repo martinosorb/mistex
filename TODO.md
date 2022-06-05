@@ -1,8 +1,6 @@
-- Verbatim adds an extra line at the end.
-- Equations don't work, $ is escaped.
-- Tables.
 - Image is not in the right place.
 - No space after italic, link, and after & in certain cases.
+- Descriptions have problems with multiline. Do this after solving the previous.
 - Problem with items in lists: too many spaces, latex does buggy things
 - Smart ellipsis and quotation marks
 - Tables:

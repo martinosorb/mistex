@@ -84,6 +84,7 @@ class LatexRenderer(BaseRenderer):
     # def ignored_block(self, text):  # TODO
     #     return '\n' + text + '\n'
 
+    # --- Text properties
     def emphasis(self, text):
         return pl.utils.italic(text)
 
@@ -117,6 +118,7 @@ class LatexRenderer(BaseRenderer):
     def thematic_break(self):
         return pl.Command('par\\bigskip\\noindent\\hrulefill\\par\\bigskip\n')
 
+    # --- Block renderers
     def block_text(self, text):
         # this is also processed by `text` above
         return text
@@ -140,6 +142,7 @@ class LatexRenderer(BaseRenderer):
     def block_error(self, text):
         return pl.basic.TextColor('red', text)
 
+    # --- Lists
     def list(self, items, ordered, level, start=None):
         # if ordered and start is not None: # TODO
         #     result += '\\setcounter{enumi}{' + str(start - 1) + '}\n'
@@ -151,6 +154,7 @@ class LatexRenderer(BaseRenderer):
     def list_item(self, text, level):
         return text
 
+    # --- Tables
     def table(self, tabular_list, aligns):
         # turn 'left', 'right', 'center', None into l, r, c, l
         aligns = ['l' if align is None else align[0] for align in aligns]
@@ -194,6 +198,7 @@ class LatexRenderer(BaseRenderer):
     def def_list_item(self, text):
         return text
 
+    # ---
     def finalize(self, data):
         ll = [i for i in data]
         if len(ll) == 1:
