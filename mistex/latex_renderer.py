@@ -153,6 +153,8 @@ class LatexRenderer(BaseRenderer):
         aligns = ['l' if align is None else align[0] for align in aligns]
         columns = '|'.join(aligns)
         table = pl.table.Tabular(table_spec=columns)
+        table.begin_paragraph = True
+        table.end_paragraph = True
 
         for name, element in tabular_list:
             if name == 'tablebody':
