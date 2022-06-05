@@ -1,7 +1,7 @@
 from mistune.renderers import BaseRenderer
 import re
 import pylatex as pl
-from .pylatex_classes import Minted, LatexList
+from .pylatex_classes import Minted, LatexList, Href, Verbatim
 
 # re_quot_close = re.compile(r'("(?=[\s.,:;!?])|"$)')
 re_2quot_open = re.compile(r'\B"\b')
@@ -35,35 +35,11 @@ class LatexRenderer(BaseRenderer):
         super(LatexRenderer, self).__init__()
         self._allow_harmful_protocols = allow_harmful_protocols
         self.cachedir = cachedir
-        self.packages = []
-        self.pkg_opt = {}
-        # self.tail_string = "\n\\end{document}"
         self.document = pl.Document(documentclass="report")
 
-    # def tail(self):
-    #     return self.tail_string
-    #
-    # def head(self):
-    #     head = "\\documentclass{report}\n"
-    #
-    #     for pkg in self.packages:
-    #         head += "\\usepackage"
-    #         if pkg in self.pkg_opt:
-    #             head += "[" + self.pkg_opt[pkg] + "]"
-    #         head += "{" + pkg + "}\n"
-    #     head += '\\date{}\n'
-    #     head += '\\begin{document}\n'
-    #     return head
-
-    def _ensure_pkg(self, package, options=None):
-        if package not in self.packages:
-            self.packages.append(package)
-            if options is not None:
-                self.pkg_opt[package] = options
-
-    def _ensure_bib(self):
-        if '\\bibliographystyle' not in self.tail_string:
-            self.tail_string = '\n\\bibliographystyle{plain}\\bibliography{thebib}\n' + self.tail_string
+    # def _ensure_bib(self):
+    #     if '\\bibliographystyle' not in self.tail_string:
+    #         self.tail_string = '\n\\bibliographystyle{plain}\\bibliography{thebib}\n' + self.tail_string
 
     def _safe_url(self, url):
         if self._allow_harmful_protocols is None:
@@ -84,10 +60,6 @@ class LatexRenderer(BaseRenderer):
     def text(self, text):
         text = re_2quot_open.sub('``', text)
         text = re_1quot_open.sub("`", text)
-
-        # if self._escape:
-        #     text = escape_latex(text)
-
         return pl.NoEscape(text)
 
     def donotparse(self, text):
@@ -97,7 +69,8 @@ class LatexRenderer(BaseRenderer):
         # `title` is ignored.
         link_url = self._safe_url(link)
         link_text = text or link
-        return pl.labelref.Hyperref(link_url, link_text)
+        href = Href((link_url, link_text))
+        return href
 
     def image(self, src, alt="", title=None):
         fig = pl.figure.Figure(position='h!')
@@ -106,8 +79,8 @@ class LatexRenderer(BaseRenderer):
             fig.add_caption(alt)
         return fig
 
-    def ignored_block(self, text):
-        return '\n' + text + '\n'
+    # def ignored_block(self, text):  # TODO
+    #     return '\n' + text + '\n'
 
     def emphasis(self, text):
         return pl.utils.italic(text)
@@ -118,28 +91,26 @@ class LatexRenderer(BaseRenderer):
     def codespan(self, text):
         return pl.Command('texttt', text)
 
-    def linebreak(self):
-        return '\n'
+    # def linebreak(self):  # TODO
+    #     return '\n'
 
-    def inline_html(self, html):
-        return html
+    # def inline_html(self, html):  # TODO
+    #     return html
 
     def paragraph(self, text):
-        print(type(text))
+        if not isinstance(text, LatexList):
+            text = LatexList(data=text)
+        text.begin_paragraph = True
         return text
-        # return '\n' + text + '\n'
 
     def heading(self, text, level):
-        if not isinstance(text, str):
-            print(text)
-            text = ''
-        return self.HEADING_LEVELS[level - 1](text)
+        return self.HEADING_LEVELS[level - 1](text, numbering=False)
 
     def newline(self):
-        return ''
+        return ""
 
     def thematic_break(self):
-        return pl.NoEscape('\\par\\bigskip\\noindent\\hrulefill\\par\\bigskip\n')
+        return pl.Command('par\\bigskip\\noindent\\hrulefill\\par\\bigskip\n')
 
     def block_text(self, text):
         # this is also processed by `text` above
@@ -148,12 +119,10 @@ class LatexRenderer(BaseRenderer):
     def block_code(self, code, info=None):
         if info:
             lang = info.strip().split(None, 1)[0]
-            env = Minted(arguments=lang)
-            # self._ensure_pkg('minted', options=f"outputdir={self.cachedir}") # TODO cache directories
+            env = Minted(lang, self.cachedir)
         else:
-            env = pl.base_classes.Environment()
-            env._latex_name = "verbatim"
-        env.append(code)
+            env = Verbatim()
+        env.append(pl.NoEscape(code))
         return env
 
     def block_quote(self, text):
