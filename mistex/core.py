@@ -5,11 +5,10 @@ import shutil
 from mistune import Markdown
 
 from .latex_renderer import LatexRenderer
-from .plugins.equation import plugin_equation
-from .plugins.codespan import plugin_codespan
 from .plugins.table import plugin_table
+from mistune.plugins import plugin_strikethrough
 
-PLUGINS = [plugin_equation, plugin_codespan, plugin_table]
+PLUGINS = [plugin_table, plugin_strikethrough]
 
 
 def _parse_escape(m, state):

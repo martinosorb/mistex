@@ -5,3 +5,8 @@
 - No space after italic, link, and after & in certain cases.
 - Problem with items in lists: too many spaces, latex does buggy things
 - Smart ellipsis and quotation marks
+- Tables:
+  - require more space before and after; maybe use `table` instead of `tabular`
+  - doesn't work with hlines on top and bottom
+  - doesn't work without vertical bars
+  - haven't tested alignments

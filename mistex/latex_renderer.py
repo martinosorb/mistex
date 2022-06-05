@@ -1,7 +1,7 @@
 from mistune.renderers import BaseRenderer
 import re
 import pylatex as pl
-from .pylatex_classes import Minted, LatexList, Href, Verbatim
+from .pylatex_classes import Minted, LatexList, Href, Verbatim, Strikethrough
 
 # re_quot_close = re.compile(r'("(?=[\s.,:;!?])|"$)')
 # re_2quot_open = re.compile(r'\B"\b')
@@ -89,6 +89,9 @@ class LatexRenderer(BaseRenderer):
 
     def strong(self, text):
         return pl.utils.bold(text)
+
+    def strikethrough(self, text):
+        return Strikethrough(text)
 
     def codespan(self, text):
         return pl.Command('texttt', text)

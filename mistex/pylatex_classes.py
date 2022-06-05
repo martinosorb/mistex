@@ -32,3 +32,8 @@ class Minted(pl.base_classes.Environment):
 
 class Href(pl.base_classes.CommandBase):
     packages = [pl.package.Package('hyperref', options="breaklinks=true")]
+
+
+class Strikethrough(pl.base_classes.CommandBase):
+    packages = [pl.package.Package('ulem')]
+    _latex_name = "sout"
