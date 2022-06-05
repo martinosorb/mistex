@@ -1,7 +1,7 @@
 from mistune.renderers import BaseRenderer
 import re
 import pylatex as pl
-from .pylatex_classes import Minted, LatexList, Href, Verbatim, Strikethrough
+from .pylatex_classes import Minted, LatexList, Href, Verbatim, Strikethrough, Description
 
 # re_quot_close = re.compile(r'("(?=[\s.,:;!?])|"$)')
 # re_2quot_open = re.compile(r'\B"\b')
@@ -181,6 +181,18 @@ class LatexRenderer(BaseRenderer):
         if is_head:
             text = pl.utils.bold(text)
         return text  # TODO: this may need to escape &
+
+    # --- Definition Lists
+    def def_list(self, text):
+        deflist = Description()
+        deflist.data = text
+        return deflist
+
+    def def_list_header(self, text):
+        return pl.Command("item", options=text)
+
+    def def_list_item(self, text):
+        return text
 
     def finalize(self, data):
         ll = [i for i in data]

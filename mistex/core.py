@@ -6,9 +6,9 @@ from mistune import Markdown
 
 from .latex_renderer import LatexRenderer
 from .plugins.table import plugin_table
-from mistune.plugins import plugin_strikethrough
+from mistune.plugins import plugin_strikethrough, plugin_def_list
 
-PLUGINS = [plugin_table, plugin_strikethrough]
+PLUGINS = [plugin_table, plugin_strikethrough, plugin_def_list]
 
 
 def _parse_escape(m, state):

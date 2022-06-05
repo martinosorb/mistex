@@ -30,6 +30,10 @@ class Minted(pl.base_classes.Environment):
         return super().dumps(*args, **kwargs) + "\n"
 
 
+class Description(pl.base_classes.Environment):
+    packages = [pl.package.Package('enumitem')]
+
+
 class Href(pl.base_classes.CommandBase):
     packages = [pl.package.Package('hyperref', options="breaklinks=true")]
 
